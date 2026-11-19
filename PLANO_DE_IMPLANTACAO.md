@@ -88,6 +88,7 @@ flowchart TD
 - [x] **Game feel:** congelamento no acerto crítico, zoom, tremor de câmera, partículas (poeira, faíscas, água), câmera lenta no golpe final.
 - [x] **Telas:** título com escolha de dificuldade (Fácil/Normal/Difícil), pausa (P/Esc), vitória com tempo, precisão e recorde salvo, derrota com dica.
 - [x] **Áudio** refeito em 16 bits (antes saía distorcido) com novos sons e tambores de guerra em ritmo.
+- [x] **Controles Touchscreen / Celular (`touch_controls.gd`):** Dois direcionais analógicos virtuais (Twin-Stick) com multi-touch real — Analógico Esquerdo para mover e pular (empurrando para cima); Analógico Direito para mirar a funda e disparar ao soltar; botões táteis para Esquiva (`💨`), Coleta (`✋`), Pausa (`⏸`) e botão alternador de touch (`📱`).
 - [x] **Robô de testes:** `engine\Godot_v4.7.2-stable_win64_console.exe --path . -- --autoplay` (opções `--diff=0|1|2`, `--passive`, `--idle`). Não salva recordes.
 
 ### Fase 5: Balanceamento e Exportação
