@@ -9,6 +9,25 @@ No Vale de Elá, o exército de Israel e os filisteus estão acampados em montes
 
 ---
 
+## 📜 Passagens Bíblicas no Jogo (1 Samuel 17)
+
+Todas as mecânicas, diálogos e elementos visuais do jogo foram modelados diretamente a partir dos versículos de **1 Samuel 17**:
+
+| Versículo | Texto Bíblico | Elemento correspondente no Jogo |
+| :--- | :--- | :--- |
+| **1 Sm 17:1-3** | *"E os filisteus estavam num monte de um lado, e os israelitas no outro monte do outro lado; e o vale estava entre eles."* | **Cenário:** O Vale de Elá com os acampamentos de tendas e bandeiras nos morros opostos, soldados assistindo e oliveiras. |
+| **1 Sm 17:4-7** | *"Tinha na cabeça um capacete de bronze, e vestia uma couraça de escamas [...] grevas de bronze [...] um dardo de bronze [...] e a haste da sua lança era como o eixo do tecelão..."* | **Visual e Ataques de Golias:** Golias modelado com capacete de bronze e penacho, couraça de escamas, grevas nas canelas, dardo nas costas e ataque de arremesso de lança. |
+| **1 Sm 17:18** | *"Leva também estes dez queijos ao capitão de mil; e verás como passam teus irmãos e tomarás o seu penhor."* | **Item de Cura:** Um queijo cai do céu durante o combate e recupera 1 coração de vida para Davi. |
+| **1 Sm 17:37** | *"O Senhor me livrou das garras do leão, e das do urso; ele me livrará da mão deste filisteu."* | **Falas de Davi:** Davi brada em combate recordando a proteção divina no pastoreio. |
+| **1 Sm 17:40** | *"E tomou o seu cajado na mão, e escolheu para si cinco pedras lisas do ribeiro, e as pôs no alforje de pastor [...] e lançou mão da sua funda..."* | **Armamento de Davi:** Túnica de pastor, funda giratória com força variável e alforje com **exatamente 5 pedras**, recarregadas no ribeiro. |
+| **1 Sm 17:43-44** | *"Disse o filisteu a Davi: Sou eu algum cão, para tu vires a mim com paus? E o filisteu amaldiçoou a Davi pelos seus deuses [...] Vem a mim, e darei a tua carne às aves do céu..."* | **Provocações de Golias:** Balões de fala no início da luta e ao entrar em Modo Fúria (< 40% de vida). |
+| **1 Sm 17:45** | *"Tu vens a mim com espada, e com lança, e com escudo; porém eu venho a ti em nome do Senhor dos Exércitos, o Deus dos exércitos de Israel..."* | **Versículo-Tema:** Exibido na tela de título e falado por Davi na abertura do duelo. |
+| **1 Sm 17:47** | *"Pois do Senhor é a batalha, e ele vos entregará nas nossas mãos."* | **Grito de Batalha:** Davi exclama *"A batalha é do Senhor!"* durante os acertos e ao vencer. |
+| **1 Sm 17:49** | *"E Davi [...] com a funda lha atirou, e feriu o filisteu na testa; e a pedra se lhe cravou na testa, e caiu sobre o seu rosto em terra."* | **Ponto Fraco:** O corpo de Golias tem armadura (dano baixo), mas acertar **a testa** causa dano crítico (35 pts), tremor de tela e atordoamento (*stun*). |
+| **1 Sm 17:50** | *"Assim Davi prevaleceu contra o filisteu com uma funda e uma pedra, e feriu o filisteu, e o matou..."* | **Tela de Vitória:** Citação em destaque quando o gigante é derrotado. |
+
+---
+
 ## ✨ Funcionalidades
 
 - **Davi (Jogador):**
