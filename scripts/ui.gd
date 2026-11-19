@@ -171,17 +171,23 @@ func _build_hud() -> void:
 	timer_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	add_child(timer_label)
 
-	# Botões táteis no topo (Pausa e Alternador de Controles Touch)
+	# Botões táteis no topo (Pausa, Alternador de Controles Touch e Tela Cheia)
 	var pause_btn := _button("⏸", toggle_pause)
 	pause_btn.position = Vector2(1085, 14)
 	pause_btn.custom_minimum_size = Vector2(42, 34)
 	pause_btn.add_theme_font_size_override("font_size", 16)
 	add_child(pause_btn)
 
-	touch_toggle_btn = _button("📱", _on_toggle_touch)
-	touch_toggle_btn.position = Vector2(1036, 14)
-	touch_toggle_btn.custom_minimum_size = Vector2(42, 34)
-	touch_toggle_btn.add_theme_font_size_override("font_size", 16)
+	var fs_btn := _button("⛶", toggle_fullscreen)
+	fs_btn.position = Vector2(1036, 14)
+	fs_btn.custom_minimum_size = Vector2(42, 34)
+	fs_btn.add_theme_font_size_override("font_size", 16)
+	add_child(fs_btn)
+
+	touch_toggle_btn = _button("📱 TOUCH: OFF", _on_toggle_touch)
+	touch_toggle_btn.position = Vector2(880, 14)
+	touch_toggle_btn.custom_minimum_size = Vector2(148, 34)
+	touch_toggle_btn.add_theme_font_size_override("font_size", 13)
 	add_child(touch_toggle_btn)
 	_update_touch_btn_visual()
 
@@ -192,7 +198,7 @@ func _build_hud() -> void:
 	mute_label.visible = false
 	add_child(mute_label)
 
-	var help := _label("Celular: Analógico Esq (Mover/Pulo) + Dir (Mirar/Atirar)  •  PC: Mouse / A-D / Espaço", 12, Color(1, 1, 1, 0.75), 4, Color(0, 0, 0, 0.7))
+	var help := _label("PC: Teclado e Mouse (A/D/Espaço)  •  Shift: Esquivar  •  P: Pausa  •  T: Controles Touch (ON/OFF)", 12, Color(1, 1, 1, 0.75), 4, Color(0, 0, 0, 0.7))
 	help.position = Vector2(0, 695)
 	help.size = Vector2(1280, 20)
 	add_child(help)
@@ -234,7 +240,19 @@ func _on_toggle_touch() -> void:
 
 func _update_touch_btn_visual() -> void:
 	if touch_toggle_btn and touch_controls:
-		touch_toggle_btn.modulate = Color(1.3, 1.2, 0.4) if touch_controls.is_active else Color(0.85, 0.85, 0.85, 0.7)
+		if touch_controls.is_active:
+			touch_toggle_btn.text = "📱 TOUCH: ON"
+			touch_toggle_btn.modulate = Color(1.3, 1.2, 0.4)
+		else:
+			touch_toggle_btn.text = "📱 TOUCH: OFF"
+			touch_toggle_btn.modulate = Color(0.82, 0.82, 0.82, 0.7)
+
+func toggle_fullscreen() -> void:
+	var mode := DisplayServer.window_get_mode()
+	if mode == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func show_banner(text: String, color: Color = GOLD, hold: float = 0.8) -> void:
 	banner.text = text
@@ -321,6 +339,8 @@ func show_title() -> void:
 	title_panel.visible = true
 
 func _start_game() -> void:
+	if OS.has_feature("mobile") or OS.has_feature("web_android") or OS.has_feature("web_ios"):
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	GameState.skip_title = true
 	_reload()
 
@@ -446,6 +466,14 @@ func _reload() -> void:
 	get_tree().reload_current_scene()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.physical_keycode == KEY_T:
+			_on_toggle_touch()
+			return
+		elif event.physical_keycode == KEY_F11:
+			toggle_fullscreen()
+			return
+
 	if event.is_action_pressed("mute"):
 		var bus := AudioServer.get_bus_index("Master")
 		var m := not AudioServer.is_bus_mute(bus)

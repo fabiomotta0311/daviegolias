@@ -54,14 +54,15 @@ func _ready() -> void:
 	_detect_touchscreen()
 
 func _detect_touchscreen() -> void:
-	var is_mobile := OS.has_feature("mobile") or OS.has_feature("android") or OS.has_feature("ios")
-	var is_web_mobile := OS.has_feature("web_android") or OS.has_feature("web_ios")
-	var touch_available := DisplayServer.is_touchscreen_available()
-
-	if is_mobile or is_web_mobile or touch_available:
-		set_touch_enabled(true)
-	else:
-		set_touch_enabled(false)
+	# Só inicia ativo automaticamente em celulares e tablets reais (Android, iOS ou navegadores móveis).
+	# Em computadores (Windows/Mac/Linux), inicia OCULTO para permitir jogar com teclado e mouse limpo.
+	var is_real_mobile := (
+		OS.has_feature("android") or 
+		OS.has_feature("ios") or 
+		OS.has_feature("web_android") or 
+		OS.has_feature("web_ios")
+	)
+	set_touch_enabled(is_real_mobile)
 
 func set_touch_enabled(enabled: bool) -> void:
 	is_active = enabled
@@ -76,11 +77,7 @@ func toggle_touch() -> bool:
 
 func _input(event: InputEvent) -> void:
 	if not is_active or not visible:
-		# Ativa se detectar toque na tela
-		if event is InputEventScreenTouch and event.pressed:
-			set_touch_enabled(true)
-		else:
-			return
+		return
 
 	if event is InputEventScreenTouch:
 		_on_screen_touch(event)
