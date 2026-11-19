@@ -166,39 +166,46 @@ func _build_hud() -> void:
 	add_child(status)
 
 	timer_label = _label("0:00.0", 22, Color(1, 0.97, 0.88), 6, Color(0.2, 0.1, 0.05))
-	timer_label.position = Vector2(1135, 16)
-	timer_label.size = Vector2(130, 30)
+	timer_label.position = Vector2(1060, 20)
+	timer_label.size = Vector2(135, 30)
 	timer_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	add_child(timer_label)
 
-	# Botões táteis no topo (Pausa, Alternador de Controles Touch e Tela Cheia)
-	var pause_btn := _button("⏸", toggle_pause)
-	pause_btn.position = Vector2(1085, 14)
-	pause_btn.custom_minimum_size = Vector2(42, 34)
-	pause_btn.add_theme_font_size_override("font_size", 16)
-	add_child(pause_btn)
-
-	var fs_btn := _button("⛶", toggle_fullscreen)
-	fs_btn.position = Vector2(1036, 14)
-	fs_btn.custom_minimum_size = Vector2(42, 34)
-	fs_btn.add_theme_font_size_override("font_size", 16)
-	add_child(fs_btn)
-
-	touch_toggle_btn = _button("📱 TOUCH: OFF", _on_toggle_touch)
-	touch_toggle_btn.position = Vector2(880, 14)
-	touch_toggle_btn.custom_minimum_size = Vector2(148, 34)
-	touch_toggle_btn.add_theme_font_size_override("font_size", 13)
-	add_child(touch_toggle_btn)
-	_update_touch_btn_visual()
-
 	mute_label = _label("SOM DESLIGADO (M)", 14, Color(1, 0.8, 0.7), 4, Color.BLACK)
-	mute_label.position = Vector2(1080, 52)
-	mute_label.size = Vector2(180, 20)
+	mute_label.position = Vector2(1020, 54)
+	mute_label.size = Vector2(175, 20)
 	mute_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	mute_label.visible = false
 	add_child(mute_label)
 
-	var help := _label("PC: Teclado e Mouse (A/D/Espaço)  •  Shift: Esquivar  •  P: Pausa  •  T: Controles Touch (ON/OFF)", 12, Color(1, 1, 1, 0.75), 4, Color(0, 0, 0, 0.7))
+	# Coluna vertical de botões no canto superior direito (Pausa, Tela Cheia, Celular)
+	# Botões grandes (54x54) para toque confortável com o dedo no mobile
+	var right_buttons := VBoxContainer.new()
+	right_buttons.position = Vector2(1208, 14)
+	right_buttons.size = Vector2(56, 190)
+	right_buttons.add_theme_constant_override("separation", 10)
+	add_child(right_buttons)
+
+	var pause_btn := _button("⏸", toggle_pause)
+	pause_btn.custom_minimum_size = Vector2(54, 54)
+	pause_btn.add_theme_font_size_override("font_size", 24)
+	pause_btn.tooltip_text = "Pausar jogo"
+	right_buttons.add_child(pause_btn)
+
+	var fs_btn := _button("⛶", toggle_fullscreen)
+	fs_btn.custom_minimum_size = Vector2(54, 54)
+	fs_btn.add_theme_font_size_override("font_size", 24)
+	fs_btn.tooltip_text = "Tela cheia"
+	right_buttons.add_child(fs_btn)
+
+	touch_toggle_btn = _button("📱", _on_toggle_touch)
+	touch_toggle_btn.custom_minimum_size = Vector2(54, 54)
+	touch_toggle_btn.add_theme_font_size_override("font_size", 24)
+	touch_toggle_btn.tooltip_text = "Controles touch na tela"
+	right_buttons.add_child(touch_toggle_btn)
+	_update_touch_btn_visual()
+
+	var help := _label("PC: Teclado e Mouse  •  Shift: Rolar  •  P: Pausa  •  📱: Controles Touch na Tela", 12, Color(1, 1, 1, 0.75), 4, Color(0, 0, 0, 0.7))
 	help.position = Vector2(0, 695)
 	help.size = Vector2(1280, 20)
 	add_child(help)
@@ -240,12 +247,11 @@ func _on_toggle_touch() -> void:
 
 func _update_touch_btn_visual() -> void:
 	if touch_toggle_btn and touch_controls:
+		touch_toggle_btn.text = "📱"
 		if touch_controls.is_active:
-			touch_toggle_btn.text = "📱 TOUCH: ON"
-			touch_toggle_btn.modulate = Color(1.3, 1.2, 0.4)
+			touch_toggle_btn.modulate = Color(1.35, 1.25, 0.45)
 		else:
-			touch_toggle_btn.text = "📱 TOUCH: OFF"
-			touch_toggle_btn.modulate = Color(0.82, 0.82, 0.82, 0.7)
+			touch_toggle_btn.modulate = Color(0.8, 0.8, 0.8, 0.7)
 
 func toggle_fullscreen() -> void:
 	var mode := DisplayServer.window_get_mode()
