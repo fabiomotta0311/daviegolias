@@ -47,6 +47,7 @@ const VISUAL_SCALE := 1.2
 
 var is_charging_sling: bool = false
 var sling_charge: float = 0.0
+var virtual_aim_dir: Vector2 = Vector2.ZERO
 var keyboard_aim: bool = false
 var kb_aim_deg: float = 40.0
 var _spin_sound_timer: float = 0.0
@@ -204,6 +205,8 @@ func get_sling_origin() -> Vector2:
 	return global_position + Vector2(facing * 7.0, -77.0)
 
 func get_aim_dir() -> Vector2:
+	if virtual_aim_dir != Vector2.ZERO:
+		return virtual_aim_dir.normalized()
 	if keyboard_aim:
 		var a := deg_to_rad(kb_aim_deg)
 		return Vector2(cos(a) * facing, -sin(a))
@@ -223,7 +226,10 @@ func _handle_sling(delta: float) -> void:
 			sling_charge = 0.0
 			_spin_sound_timer = 0.0
 		sling_charge = minf(sling_charge + delta * CHARGE_RATE, 1.0)
-		if keyboard_aim:
+		if virtual_aim_dir != Vector2.ZERO:
+			if absf(virtual_aim_dir.x) > 0.05:
+				facing = signf(virtual_aim_dir.x)
+		elif keyboard_aim:
 			var a := Input.get_axis("aim_down", "aim_up")
 			kb_aim_deg = clampf(kb_aim_deg + a * 80.0 * delta, -10.0, 80.0)
 			var d := Input.get_axis("move_left", "move_right")

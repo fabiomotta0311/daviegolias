@@ -56,16 +56,17 @@ Todas as mecânicas, diálogos e elementos visuais do jogo foram modelados diret
 
 ## 🎮 Controles
 
-| Ação | Teclado / Mouse |
-| :--- | :--- |
-| **Mover** | `A` / `D` ou Setas |
-| **Pular** | `W`, `Espaço` ou Seta Cima |
-| **Esquivar / Rolar** | `Shift`, `C` ou `Botão Direito do Mouse` |
-| **Mirar e Atirar** | Segure `Botão Esquerdo do Mouse` ou `F` e solte |
-| **Recolher pedras** | `E` (junto ao ribeiro ou sobre pedras caídas) |
-| **Pausar** | `P` ou `Esc` |
-| **Reiniciar** | `R` |
-| **Mutar Áudio** | `M` |
+| Ação | Teclado / Mouse (PC) | Celular / Touchscreen (Web Móvel) |
+| :--- | :--- | :--- |
+| **Mover (Frente / Trás)** | `A` / `D` ou Setas | **Analógico Esquerdo:** Deslize para a esquerda ou direita |
+| **Pular** | `W`, `Espaço` ou Seta Cima | **Analógico Esquerdo:** Empurre para **cima** (`▲ PULO`) |
+| **Mirar e Atirar a Funda** | Segure `Clique Esquerdo` ou `F` e solte | **Analógico Direito:** Puxe para **mirar o ângulo** e **solte para atirar** 🎯 |
+| **Esquivar / Rolar** | `Shift`, `C` ou `Clique Direito` | **Botão `💨 ROLAR`** (acima do analógico esquerdo) |
+| **Recolher pedras / Queijo** | `E` (no ribeiro ou sobre o item) | **Botão `✋ PEGAR`** (ou automático no ribeiro) |
+| **Pausar** | `P` ou `Esc` | **Botão `⏸`** no topo da tela |
+| **Ativar/Desativar Touch** | — | **Botão `📱`** no topo da tela (auto-detecta celular) |
+| **Reiniciar** | `R` | Botão no menu de fim de jogo |
+| **Mutar Áudio** | `M` | Tecla `M` |
 
 ---
 

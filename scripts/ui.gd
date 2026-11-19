@@ -5,6 +5,7 @@ class_name GameUI
 # HUD e telas (título, pausa, vitória e derrota), montados em código.
 
 const HUD_WIDGETS = preload("res://scripts/hud_widgets.gd")
+const TOUCH_CONTROLS_SCENE = preload("res://scripts/touch_controls.gd")
 
 const INK := Color(0.22, 0.13, 0.06)
 const PARCHMENT := Color(0.97, 0.91, 0.76)
@@ -41,14 +42,26 @@ var end_stats: Label
 var diff_buttons: Array = []
 var best_label: Label
 
+var touch_controls: Control = null
+var touch_toggle_btn: Button = null
+
 var _hint_key: String = ""
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	touch_controls = TOUCH_CONTROLS_SCENE.new()
+	add_child(touch_controls)
 	_build_hud()
 	_build_title()
 	_build_pause()
 	_build_end()
+
+func _process(_delta: float) -> void:
+	if touch_controls:
+		var in_menu := title_panel.visible or pause_panel.visible or end_panel.visible
+		touch_controls.visible = touch_controls.is_active and not in_menu
+		if arena != null and touch_controls.david_ref == null:
+			touch_controls.david_ref = arena.david
 
 # ------------------------------------------------------------------ Estilos
 func _panel_style(bg: Color = PARCHMENT, border: Color = Color(0.5, 0.32, 0.14)) -> StyleBoxFlat:
@@ -146,20 +159,34 @@ func _build_hud() -> void:
 	add_child(status)
 
 	timer_label = _label("0:00.0", 22, Color(1, 0.97, 0.88), 6, Color(0.2, 0.1, 0.05))
-	timer_label.position = Vector2(1120, 16)
-	timer_label.size = Vector2(140, 30)
+	timer_label.position = Vector2(1135, 16)
+	timer_label.size = Vector2(130, 30)
 	timer_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	add_child(timer_label)
 
+	# Botões táteis no topo (Pausa e Alternador de Controles Touch)
+	var pause_btn := _button("⏸", toggle_pause)
+	pause_btn.position = Vector2(1085, 14)
+	pause_btn.custom_minimum_size = Vector2(42, 34)
+	pause_btn.add_theme_font_size_override("font_size", 16)
+	add_child(pause_btn)
+
+	touch_toggle_btn = _button("📱", _on_toggle_touch)
+	touch_toggle_btn.position = Vector2(1036, 14)
+	touch_toggle_btn.custom_minimum_size = Vector2(42, 34)
+	touch_toggle_btn.add_theme_font_size_override("font_size", 16)
+	add_child(touch_toggle_btn)
+	_update_touch_btn_visual()
+
 	mute_label = _label("SOM DESLIGADO (M)", 14, Color(1, 0.8, 0.7), 4, Color.BLACK)
-	mute_label.position = Vector2(1080, 48)
+	mute_label.position = Vector2(1080, 52)
 	mute_label.size = Vector2(180, 20)
 	mute_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	mute_label.visible = false
 	add_child(mute_label)
 
-	var help := _label("Mouse: mirar e atirar  •  Shift: esquivar  •  P: pausa", 13, Color(1, 1, 1, 0.75), 4, Color(0, 0, 0, 0.7))
-	help.position = Vector2(0, 690)
+	var help := _label("Celular: Analógico Esq (Mover/Pulo) + Dir (Mirar/Atirar)  •  PC: Mouse / A-D / Espaço", 12, Color(1, 1, 1, 0.75), 4, Color(0, 0, 0, 0.7))
+	help.position = Vector2(0, 695)
 	help.size = Vector2(1280, 20)
 	add_child(help)
 
@@ -192,6 +219,15 @@ func set_time(t: float) -> void:
 
 func set_muted(m: bool) -> void:
 	mute_label.visible = m
+
+func _on_toggle_touch() -> void:
+	if touch_controls:
+		touch_controls.toggle_touch()
+		_update_touch_btn_visual()
+
+func _update_touch_btn_visual() -> void:
+	if touch_toggle_btn and touch_controls:
+		touch_toggle_btn.modulate = Color(1.3, 1.2, 0.4) if touch_controls.is_active else Color(0.85, 0.85, 0.85, 0.7)
 
 func show_banner(text: String, color: Color = GOLD, hold: float = 0.8) -> void:
 	banner.text = text
