@@ -1,0 +1,202 @@
+[gd_scene load_steps=2 format=3 uid="uid://game_ui_01"]
+
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_ui"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_ui")
+
+[node name="TopBar" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 24.0
+offset_right = 300.0
+offset_bottom = 90.0
+grow_horizontal = 2
+
+[node name="GoliathLabel" type="Label" parent="TopBar"]
+layout_mode = 2
+text = "GOLIAS DE GATE - O CAMPEÃO DOS FILISTEUS"
+horizontal_alignment = 1
+
+[node name="GoliathHealthBar" type="ProgressBar" parent="TopBar"]
+custom_minimum_size = Vector2(600, 26)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="GoliathStateLabel" type="Label" parent="TopBar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "IDLE"
+horizontal_alignment = 1
+
+[node name="BottomBar" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -64.0
+offset_right = 600.0
+offset_bottom = -24.0
+grow_vertical = 0
+theme_override_constants/separation = 24
+
+[node name="HealthLabel" type="Label" parent="BottomBar"]
+layout_mode = 2
+text = "Davi:"
+
+[node name="HealthContainer" type="HBoxContainer" parent="BottomBar"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StonesLabel" type="Label" parent="BottomBar"]
+layout_mode = 2
+text = "Pedras no Alforje: 5 / 5"
+
+[node name="ChargeBar" type="ProgressBar" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+show_percentage = false
+
+[node name="VictoryPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -130.0
+offset_right = 260.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="VictoryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="VictoryPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "VITÓRIA!"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="VictoryPanel/VBox"]
+layout_mode = 2
+text = "O gigante tombou com uma única pedra cravada na testa!
+O Deus de Israel deu a vitória a Davi."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RestartHint" type="Label" parent="VictoryPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+text = "Pressione [ R ] para jogar novamente"
+horizontal_alignment = 1
+
+[node name="ControlsGuide" type="PanelContainer" parent="."]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 330.0
+offset_bottom = 150.0
+
+[node name="Margin" type="MarginContainer" parent="ControlsGuide"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="ControlsGuide/Margin"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ControlsGuide/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_font_sizes/font_size = 13
+text = "COMO JOGAR:"
+
+[node name="Shoot" type="Label" parent="ControlsGuide/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "• Atirar: Segure e Solte o Clique Esquerdo (ou tecla F)"
+
+[node name="Dodge" type="Label" parent="ControlsGuide/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "• Esquivar: Shift ou Clique Direito"
+
+[node name="Stones" type="Label" parent="ControlsGuide/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "• Recarregar: Tecla E no riacho"
+
+[node name="Restart" type="Label" parent="ControlsGuide/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "• Reiniciar: Tecla R"
+
+[node name="GameOverPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -120.0
+offset_right = 260.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="GameOverPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="GameOverPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "DAVI CAIU..."
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="GameOverPanel/VBox"]
+layout_mode = 2
+text = "A força brutal do gigante prevaleceu. Não desanime!"
+horizontal_alignment = 1
+
+[node name="RestartHint" type="Label" parent="GameOverPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+text = "Pressione [ R ] para tentar novamente"
+horizontal_alignment = 1

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://davi_player_01"]
+
+[ext_resource type="Script" path="res://scripts/david.gd" id="1_david"]
+[ext_resource type="Script" path="res://scripts/david_visual.gd" id="2_visual"]
+[ext_resource type="Script" path="res://scripts/trajectory_preview.gd" id="3_traj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_david"]
+radius = 15.0
+height = 66.0
+
+[node name="David" type="CharacterBody2D"]
+z_index = 2
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_david")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -33)
+shape = SubResource("CapsuleShape2D_david")
+
+[node name="Visuals" type="Node2D" parent="."]
+script = ExtResource("2_visual")
+
+[node name="Trajectory" type="Node2D" parent="."]
+script = ExtResource("3_traj")

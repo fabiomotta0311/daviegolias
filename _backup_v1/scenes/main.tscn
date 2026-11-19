@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=3 uid="uid://main_arena_01"]
+
+[ext_resource type="Script" path="res://scripts/arena.gd" id="1_arena"]
+[ext_resource type="PackedScene" path="res://scenes/david.tscn" id="2_david"]
+[ext_resource type="PackedScene" path="res://scenes/goliath.tscn" id="3_goliath"]
+[ext_resource type="PackedScene" path="res://scenes/ui.tscn" id="4_ui"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(1360, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_brook"]
+size = Vector2(180, 50)
+
+[node name="MainArena" type="Node2D"]
+script = ExtResource("1_arena")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sky" type="ColorRect" parent="Background"]
+offset_right = 1280.0
+offset_bottom = 600.0
+color = Color(0.78, 0.65, 0.48, 1)
+
+[node name="DistantMountains" type="ColorRect" parent="Background"]
+offset_top = 380.0
+offset_right = 1280.0
+offset_bottom = 590.0
+color = Color(0.65, 0.52, 0.38, 1)
+
+[node name="Hills" type="ColorRect" parent="Background"]
+offset_top = 470.0
+offset_right = 1280.0
+offset_bottom = 590.0
+color = Color(0.55, 0.42, 0.3, 1)
+
+[node name="StaticArena" type="StaticBody2D" parent="."]
+collision_mask = 7
+
+[node name="GroundCollision" type="CollisionShape2D" parent="StaticArena"]
+position = Vector2(640, 630)
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="GroundVisual" type="ColorRect" parent="StaticArena"]
+offset_top = 590.0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.42, 0.31, 0.2, 1)
+
+[node name="LeftWallCollision" type="CollisionShape2D" parent="StaticArena"]
+position = Vector2(-20, 360)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightWallCollision" type="CollisionShape2D" parent="StaticArena"]
+position = Vector2(1300, 360)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="BrookArea" type="Area2D" parent="."]
+position = Vector2(140, 575)
+collision_layer = 1
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BrookArea"]
+shape = SubResource("RectangleShape2D_brook")
+
+[node name="BrookVisual" type="ColorRect" parent="BrookArea"]
+offset_left = -90.0
+offset_top = 10.0
+offset_right = 90.0
+offset_bottom = 25.0
+color = Color(0.3, 0.55, 0.78, 0.8)
+
+[node name="BrookStonesVisual" type="ColorRect" parent="BrookArea"]
+offset_left = -60.0
+offset_top = 6.0
+offset_right = 60.0
+offset_bottom = 14.0
+color = Color(0.7, 0.7, 0.72, 1)
+
+[node name="RefillHint" type="Label" parent="BrookArea"]
+offset_left = -150.0
+offset_top = -45.0
+offset_right = 150.0
+offset_bottom = -20.0
+theme_override_font_sizes/font_size = 14
+text = "Ribeiro: Pressione [ E ] para pegar pedras"
+horizontal_alignment = 1
+
+[node name="David" parent="." instance=ExtResource("2_david")]
+position = Vector2(360, 590)
+
+[node name="Goliath" parent="." instance=ExtResource("3_goliath")]
+position = Vector2(980, 590)
+
+[node name="UI" parent="." instance=ExtResource("4_ui")]

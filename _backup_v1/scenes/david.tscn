@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://davi_player_01"]
+
+[ext_resource type="Script" path="res://scripts/david.gd" id="1_david"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_david"]
+radius = 16.0
+height = 54.0
+
+[node name="David" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_david")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -27)
+shape = SubResource("CapsuleShape2D_david")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Body" type="ColorRect" parent="Visuals"]
+offset_left = -14.0
+offset_top = -42.0
+offset_right = 14.0
+offset_bottom = 0.0
+color = Color(0.36, 0.58, 0.78, 1)
+
+[node name="Head" type="ColorRect" parent="Visuals"]
+offset_left = -10.0
+offset_top = -58.0
+offset_right = 10.0
+offset_bottom = -42.0
+color = Color(0.92, 0.76, 0.61, 1)
+
+[node name="Hair" type="ColorRect" parent="Visuals"]
+offset_left = -11.0
+offset_top = -60.0
+offset_right = 11.0
+offset_bottom = -53.0
+color = Color(0.45, 0.25, 0.12, 1)
+
+[node name="SlingOrigin" type="Marker2D" parent="Visuals"]
+position = Vector2(16, -32)
+
+[node name="TrajectoryLine" type="Line2D" parent="."]
+position = Vector2(16, -32)
+width = 3.0
+default_color = Color(1, 0.9, 0.4, 0.6)

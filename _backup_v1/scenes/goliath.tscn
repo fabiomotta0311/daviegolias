@@ -1,0 +1,137 @@
+[gd_scene load_steps=6 format=3 uid="uid://goliath_boss_01"]
+
+[ext_resource type="Script" path="res://scripts/goliath.gd" id="1_goliath"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_goliath_body"]
+radius = 42.0
+height = 180.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_head"]
+radius = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_torso"]
+size = Vector2(76, 120)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_punch"]
+radius = 48.0
+
+[node name="Goliath" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_goliath")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -90)
+shape = SubResource("CapsuleShape2D_goliath_body")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="ArmorLegs" type="ColorRect" parent="Visuals"]
+offset_left = -36.0
+offset_top = -70.0
+offset_right = 36.0
+offset_bottom = 0.0
+color = Color(0.38, 0.28, 0.18, 1)
+
+[node name="ArmorTorso" type="ColorRect" parent="Visuals"]
+offset_left = -44.0
+offset_top = -155.0
+offset_right = 44.0
+offset_bottom = -65.0
+color = Color(0.62, 0.45, 0.22, 1)
+
+[node name="Head" type="ColorRect" parent="Visuals"]
+offset_left = -22.0
+offset_top = -195.0
+offset_right = 22.0
+offset_bottom = -155.0
+color = Color(0.82, 0.65, 0.52, 1)
+
+[node name="Helmet" type="ColorRect" parent="Visuals"]
+offset_left = -25.0
+offset_top = -205.0
+offset_right = 25.0
+offset_bottom = -178.0
+color = Color(0.72, 0.53, 0.22, 1)
+
+[node name="ForeheadWeakpoint" type="ColorRect" parent="Visuals"]
+offset_left = -12.0
+offset_top = -178.0
+offset_right = 12.0
+offset_bottom = -166.0
+color = Color(0.95, 0.72, 0.6, 1)
+
+[node name="Fist" type="ColorRect" parent="Visuals"]
+offset_left = 32.0
+offset_top = -95.0
+offset_right = 72.0
+offset_bottom = -45.0
+color = Color(0.55, 0.38, 0.25, 1)
+
+[node name="HeadArea" type="Area2D" parent="Visuals"]
+position = Vector2(0, -182)
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/HeadArea"]
+shape = SubResource("CircleShape2D_head")
+
+[node name="BodyArea" type="Area2D" parent="Visuals"]
+position = Vector2(0, -100)
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/BodyArea"]
+shape = SubResource("RectangleShape2D_torso")
+
+[node name="PunchHitbox" type="Area2D" parent="Visuals"]
+position = Vector2(52, -70)
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/PunchHitbox"]
+shape = SubResource("CircleShape2D_punch")
+
+[node name="ShockwaveSpawn" type="Marker2D" parent="Visuals"]
+position = Vector2(0, 0)
+
+[node name="StunIndicator" type="Node2D" parent="Visuals"]
+visible = false
+position = Vector2(0, -215)
+
+[node name="Star1" type="Label" parent="Visuals/StunIndicator"]
+offset_left = -28.0
+offset_top = -14.0
+offset_right = -8.0
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="Star2" type="Label" parent="Visuals/StunIndicator"]
+offset_left = -10.0
+offset_top = -22.0
+offset_right = 10.0
+offset_bottom = 6.0
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 20
+text = "★"
+horizontal_alignment = 1
+
+[node name="Star3" type="Label" parent="Visuals/StunIndicator"]
+offset_left = 8.0
+offset_top = -14.0
+offset_right = 28.0
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="TelegraphMarker" type="ColorRect" parent="."]
+offset_left = -40.0
+offset_top = -10.0
+offset_right = 40.0
+offset_bottom = 2.0
+color = Color(0.9, 0.15, 0.15, 0.55)

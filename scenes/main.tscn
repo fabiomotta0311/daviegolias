@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://main_arena_01"]
+
+[ext_resource type="Script" path="res://scripts/arena.gd" id="1_arena"]
+[ext_resource type="PackedScene" path="res://scenes/david.tscn" id="2_david"]
+[ext_resource type="PackedScene" path="res://scenes/goliath.tscn" id="3_goliath"]
+[ext_resource type="PackedScene" path="res://scenes/ui.tscn" id="4_ui"]
+[ext_resource type="Script" path="res://scripts/background.gd" id="5_bg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(1400, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 2400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_brook"]
+size = Vector2(190, 60)
+
+[node name="MainArena" type="Node2D"]
+script = ExtResource("1_arena")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("5_bg")
+
+[node name="StaticArena" type="StaticBody2D" parent="."]
+collision_mask = 7
+
+[node name="GroundCollision" type="CollisionShape2D" parent="StaticArena"]
+position = Vector2(640, 630)
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="LeftWallCollision" type="CollisionShape2D" parent="StaticArena"]
+position = Vector2(-20, 0)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightWallCollision" type="CollisionShape2D" parent="StaticArena"]
+position = Vector2(1300, 0)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="BrookArea" type="Area2D" parent="."]
+position = Vector2(142, 570)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BrookArea"]
+shape = SubResource("RectangleShape2D_brook")
+
+[node name="RefillHint" type="Label" parent="BrookArea"]
+z_index = 10
+offset_left = -150.0
+offset_top = -95.0
+offset_right = 170.0
+offset_bottom = -70.0
+theme_override_colors/font_color = Color(0.85, 0.95, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.15, 0.3, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+text = "Pegando pedras lisas do ribeiro..."
+horizontal_alignment = 1
+
+[node name="David" parent="." instance=ExtResource("2_david")]
+position = Vector2(380, 590)
+
+[node name="Goliath" parent="." instance=ExtResource("3_goliath")]
+position = Vector2(980, 590)
+
+[node name="UI" parent="." instance=ExtResource("4_ui")]

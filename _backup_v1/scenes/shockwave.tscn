@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://shockwave_01"]
+
+[ext_resource type="Script" path="res://scripts/shockwave.gd" id="1_shockwave"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shock"]
+size = Vector2(48, 36)
+
+[node name="Shockwave" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_shockwave")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_shock")
+
+[node name="VisualRocks" type="Node2D" parent="."]
+
+[node name="Rock1" type="ColorRect" parent="VisualRocks"]
+offset_left = -20.0
+offset_top = -32.0
+offset_right = -4.0
+offset_bottom = 0.0
+color = Color(0.55, 0.42, 0.3, 1)
+
+[node name="Rock2" type="ColorRect" parent="VisualRocks"]
+offset_left = -2.0
+offset_top = -42.0
+offset_right = 16.0
+offset_bottom = 0.0
+color = Color(0.48, 0.35, 0.22, 1)
+
+[node name="Dust" type="ColorRect" parent="VisualRocks"]
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 0.0
+color = Color(0.8, 0.72, 0.58, 0.6)
