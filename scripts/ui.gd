@@ -44,6 +44,7 @@ var best_label: Label
 
 var touch_controls: Control = null
 var touch_toggle_btn: Button = null
+var rotate_overlay: Control = null
 
 var _hint_key: String = ""
 
@@ -55,6 +56,7 @@ func _ready() -> void:
 	_build_title()
 	_build_pause()
 	_build_end()
+	_build_rotate_overlay()
 
 func _process(_delta: float) -> void:
 	if touch_controls:
@@ -62,6 +64,11 @@ func _process(_delta: float) -> void:
 		touch_controls.visible = touch_controls.is_active and not in_menu
 		if arena != null and touch_controls.david_ref == null:
 			touch_controls.david_ref = arena.david
+
+	# Detecta se o celular está em pé (modo retrato) e orienta a virar de lado
+	if rotate_overlay:
+		var vp := get_viewport().get_visible_rect().size
+		rotate_overlay.visible = (vp.y > vp.x)
 
 # ------------------------------------------------------------------ Estilos
 func _panel_style(bg: Color = PARCHMENT, border: Color = Color(0.5, 0.32, 0.14)) -> StyleBoxFlat:
@@ -360,6 +367,35 @@ func _build_end() -> void:
 	v.add_child(hb)
 	hb.add_child(_button("Jogar de novo (R)", restart))
 	hb.add_child(_button("Menu (Esc)", go_to_menu))
+
+func _build_rotate_overlay() -> void:
+	rotate_overlay = Control.new()
+	rotate_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	rotate_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	rotate_overlay.visible = false
+	add_child(rotate_overlay)
+
+	var dim := ColorRect.new()
+	dim.color = Color(0.08, 0.05, 0.03, 0.94)
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	rotate_overlay.add_child(dim)
+
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	rotate_overlay.add_child(center)
+
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 14)
+	center.add_child(v)
+
+	var icon := _label("📱 ⟳", 58, GOLD)
+	v.add_child(icon)
+
+	var msg := _label("GIRE O CELULAR DE LADO", 24, Color(1, 0.95, 0.8), 8, Color(0.2, 0.1, 0.04))
+	v.add_child(msg)
+
+	var sub := _label("O duelo foi projetado para a tela na horizontal!", 16, Color(0.9, 0.82, 0.65))
+	v.add_child(sub)
 
 func show_victory(time: float, record: bool) -> void:
 	end_title.text = "VITÓRIA!"
